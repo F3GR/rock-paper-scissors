@@ -1,1 +1,1 @@
-# rock-paper-scissors
+A simple version of the game Rock Paper Scissors (1 player versus a computer)
