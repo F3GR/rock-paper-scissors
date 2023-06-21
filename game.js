@@ -5,6 +5,7 @@ const choiceScissors = "scissors";
 let playerChoice = getUserChoice();
 let computerChoice = getComputerChoice();
 
+
 function getUserChoice() {
     let userChoice;
     userChoice = prompt("Choose rock, paper or scissors: ").toLowerCase();
@@ -24,4 +25,10 @@ function getComputerChoice() {
     } else {
         return choiceScissors;
     } 
+}
+
+function gameRound(playerChoice, computerChoice) {
+    switch (true) {
+        case ()
+    }
 }
