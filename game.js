@@ -1,6 +1,4 @@
-const choiceRock = "rock";
-const choicePaper = "paper";
-const choiceScissors = "scissors";
+const choices = ["rock", "paper", "scissors"];
 const winScore = 5;
 let winsPlayer = 0;
 let winsComputer = 0;
@@ -15,7 +13,7 @@ printWinner();
 
 function getUserChoice() {
   const userChoice = prompt("Choose rock, paper or scissors: ").toLowerCase();
-  if (userChoice !== choiceRock && userChoice !== choicePaper && userChoice !== choiceScissors) {
+  if (userChoice !== choices[0] && userChoice !== choices[1] && userChoice !== choices[2]) {
     alert("Your choice is not valid, please try again.");
     getUserChoice();
   }
@@ -25,11 +23,11 @@ function getUserChoice() {
 function getComputerChoice() {
   const computerChoice = Math.round(Math.random() * 3) + 1;
   if (computerChoice === 1) {
-    return choiceRock;
+    return choices[0];
   } else if (computerChoice === 2) {
-    return choicePaper;
+    return choices[1];
   } else {
-    return choiceScissors;
+    return choices[2];
   } 
 }
 
