@@ -9,8 +9,9 @@ while (winsPlayer !== winScore && winsComputer !== winScore) {
     let playerChoice = getUserChoice();
     let computerChoice = getComputerChoice();
     alert(playRound(playerChoice, computerChoice));
-    printWins();
+    printScore();
 }
+printWinner();
 
 function getUserChoice() {
     const userChoice = prompt("Choose rock, paper or scissors: ").toLowerCase();
@@ -57,6 +58,15 @@ function playRound(playerChoice, computerChoice) {
     }
 }
 
-function printWins() {
+function printScore() {
     console.log(`Your score: ${winsPlayer}, Computer's score: ${winsComputer}.`)
+}
+
+function printWinner() {
+    if (winsPlayer == winScore) {
+        alert("Congratulations! You won the game!")
+    }
+    if (winsComputer == winScore) {
+        alert("Game over! Computer won the game.")
+    }
 }
