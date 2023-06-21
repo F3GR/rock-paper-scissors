@@ -16,7 +16,7 @@ printWinner();
 function getUserChoice() {
     const userChoice = prompt("Choose rock, paper or scissors: ").toLowerCase();
     if (userChoice !== choiceRock && userChoice !== choicePaper && userChoice !== choiceScissors) {
-        alert("Your input is not valid, please try again.");
+        alert("Your choice is not valid, please try again.");
         getUserChoice();
     }
     return userChoice;
@@ -59,14 +59,14 @@ function playRound(playerChoice, computerChoice) {
 }
 
 function printScore() {
-    console.log(`Your score: ${winsPlayer}, Computer's score: ${winsComputer}.`)
+    console.log(`Your current score: ${winsPlayer}, Computer's current score: ${winsComputer}.`)
 }
 
 function printWinner() {
-    if (winsPlayer == winScore) {
+    if (winsPlayer === winScore) {
         alert("Congratulations! You won the game!")
     }
-    if (winsComputer == winScore) {
+    if (winsComputer === winScore) {
         alert("Game over! Computer won the game.")
     }
 }
