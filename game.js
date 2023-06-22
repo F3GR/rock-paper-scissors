@@ -44,7 +44,7 @@ function playRound(playerChoice, computerChoice) {
     case (playerChoice === choices[1], computerChoice === choices[0]):
       winsPlayer++;
       return "You Win! Paper beats Rock";
-    case (playerChoice === choices[1], computerChoice === "scissors"):
+    case (playerChoice === choices[1], computerChoice === choices[2]):
       winsComputer++;
       return "You Lose! Paper loses to Scissors";
     case (playerChoice === choices[2], computerChoice === choices[0]):
