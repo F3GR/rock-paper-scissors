@@ -35,22 +35,22 @@ function playRound(playerChoice, computerChoice) {
   switch (true) {
     case (playerChoice === computerChoice):
       return `Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
-    case (playerChoice === "rock", computerChoice === "paper"):
+    case (playerChoice === choices[0], computerChoice === choices[1]):
       winsComputer++;
       return "You Lose! Rock loses to Scissors";
-    case (playerChoice === "rock", computerChoice === "scissors"):
+    case (playerChoice === choices[0], computerChoice === choices[2]):
       winsPlayer++;
       return "You Win! Rock beats Scissors";
-    case (playerChoice === "paper", computerChoice === "rock"):
+    case (playerChoice === choices[1], computerChoice === choices[0]):
       winsPlayer++;
       return "You Win! Paper beats Rock";
-    case (playerChoice === "paper", computerChoice === "scissors"):
+    case (playerChoice === choices[1], computerChoice === "scissors"):
       winsComputer++;
       return "You Lose! Paper loses to Scissors";
-    case (playerChoice === "scissors", computerChoice === "rock"):
+    case (playerChoice === choices[2], computerChoice === choices[0]):
       winsComputer++;
       return "You Lose! Scissors lose to Rock";
-    case (playerChoice === "scissors", computerChoice === "paper"):
+    case (playerChoice === choices[2], computerChoice === choices[1]):
       winsPlayer++;
       return "You Win! Scissors beat Paper";
   }
