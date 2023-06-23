@@ -25,7 +25,9 @@ nameInput.addEventListener('keydown', function (e) {
             if (counter === 0) {
             clearInterval(interval);
             mainHTML.removeChild(newDiv);
-            playGame();
+            renderGameInterface();
+            addEventListeners();
+            playRound();
             }      
         }, 1000)
     }
@@ -47,18 +49,18 @@ function promptAgainIfNeeded(inputField, message) {
     } 
 }
 
+const choiceOptions = ["rock", "paper", "scissors"];
+const winScore = 5;
 
+let winsPlayer = 0;
+let winsComputer = 0;
+let currentRound = 1;
+
+let playerChoice;
 
 /***** Game Interface *****/
 
-function playGame() {
-
-    const choiceOptions = ["rock", "paper", "scissors"];
-    const winScore = 5;
-
-    let winsPlayer = 0;
-    let winsComputer = 0;
-    let currentRound = 1;
+function renderGameInterface() {
 
     mainHTML.setAttribute("class", "playing");
 
@@ -130,7 +132,7 @@ function playGame() {
 
     // Button Rock
     const choiceRock = document.createElement("button");
-    choiceRock.setAttribute("class", "rock");
+    choiceRock.setAttribute("id", "rock");
     choices.appendChild(choiceRock);
 
     const imageRock = document.createElement("img");
@@ -141,7 +143,7 @@ function playGame() {
     
     // Button Paper
     const choicePaper = document.createElement("button");
-    choicePaper.setAttribute("class", "paper");
+    choicePaper.setAttribute("id", "paper");
     choices.appendChild(choicePaper);
 
     const imagePaper = document.createElement("img");
@@ -152,7 +154,7 @@ function playGame() {
 
     // Button Scissors
     const choiceScissors = document.createElement("button");
-    choiceScissors.setAttribute("class", "scissors");
+    choiceScissors.setAttribute("id", "scissors");
     choices.appendChild(choiceScissors);
 
     const imageScissors = document.createElement("img");
@@ -161,79 +163,89 @@ function playGame() {
     imageScissors.setAttribute("title", "Click on the image to make your choice!");
     choiceScissors.appendChild(imageScissors);
 
+}
 
-    while (winsPlayer !== winScore && winsComputer !== winScore) {
-        let playerChoice = getUserChoice();
-        let computerChoice = getComputerChoice();
-        alert(playRound(playerChoice, computerChoice));
-        printScore();
-        }
-        printWinner();
+// Event listeners on each of the buttons (click + Enter)
+function addEventListeners() {
+    
+    let choicesArray = document.getElementsByTagName("button");
 
-        choiceRock.addEventListener("keydown", getUserChoice(e));
-        choiceRock.addEventListener("click", getUserChoice(e));
-        choicePaper.addEventListener("keydown", getUserChoice(e));
-        choicePaper.addEventListener("click", getUserChoice(e));
-        choiceScissors.addEventListener("keydown", getUserChoice(e));
-        choiceScissors.addEventListener("click", getUserChoice(e));
-        
-        function getUserChoice(e) {
-            if (e === "click") {
-                return objectName.className;
-            }
+    const testHeader = document.querySelector("header");
+    const testParagraph = document.createElement("h2");
+    testHeader.appendChild(testParagraph);
+
+    for (let choice of choicesArray) {
+        choice.addEventListener("keydown", function getChoice(e) {
             if (e === "keydown") {
                 if (e.key === 'Enter') {
-                    return objectName.className;
+                    playerChoice = e.target.id;
+                    testParagraph.innerText = `${e} was clicked`
                 }
             }
-        }
+        })
+        choice.addEventListener("click", function getChoice(e) {
+                playerChoice = e.target.id;
+                testParagraph.innerText = `${e} was clicked`
+        });
+    }
+
+}
+
+
+function playRound() {
+    /* Event listeners on each of the buttons (click + Enter)
+    choiceRock.addEventListener("keydown", getChoice(e));
+    choiceRock.addEventListener("click", getChoice(e));
+    choicePaper.addEventListener("keydown", getChoice(e));
+    choicePaper.addEventListener("click", getChoice(e));
+    choiceScissors.addEventListener("keydown", getChoice(e));
+    choiceScissors.addEventListener("click", getChoice(e)); */
+
+    let computerChoice = getComputerChoice();
         
-        function getComputerChoice() {
-        const computerChoice = Math.round(Math.random() * 3) + 1;
-        if (computerChoice === 1) {
-            return choiceOptions[0];
-        } else if (computerChoice === 2) {
-            return choiceOptions[1];
-        } else {
-            return choiceOptions[2];
-        } 
-        }
-        
-        function playRound(playerChoice, computerChoice) {
-        switch (true) {
-            case (playerChoice === computerChoice):
-            return `Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
-            case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
-            winsComputer++;
-            return "You Lose! Rock loses to Scissors";
-            case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
-            winsPlayer++;
-            return "You Win! Rock beats Scissors";
-            case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
-            winsPlayer++;
-            return "You Win! Paper beats Rock";
-            case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
-            winsComputer++;
-            return "You Lose! Paper loses to Scissors";
-            case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
-            winsComputer++;
-            return "You Lose! Scissors lose to Rock";
-            case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
-            winsPlayer++;
-            return "You Win! Scissors beat Paper";
-        }
-        }
-        
-        function printScore() {
-        console.log(`Your current score: ${winsPlayer}, Computer's current score: ${winsComputer}.`);
-        }
-        
-        function printWinner() {
-        if (winsPlayer === winScore) {
-            alert("Congratulations! You won the game!");
-        }
-        if (winsComputer === winScore) {
-            alert("Game over! Computer won the game.");
-        }
+    function getComputerChoice() {
+    const computerChoice = Math.round(Math.random() * 3) + 1;
+    if (computerChoice === 1) {
+        return choiceOptions[0];
+    } else if (computerChoice === 2) {
+        return choiceOptions[1];
+    } else {
+        return choiceOptions[2];
+    } 
+    }
+    
+    function printedResult(playerChoice, computerChoice) {
+    switch (true) {
+        case (playerChoice === computerChoice):
+        return `Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
+        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
+        winsComputer++;
+        return "You Lose! Rock loses to Scissors";
+        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
+        winsPlayer++;
+        return "You Win! Rock beats Scissors";
+        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
+        winsPlayer++;
+        return "You Win! Paper beats Rock";
+        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
+        winsComputer++;
+        return "You Lose! Paper loses to Scissors";
+        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
+        winsComputer++;
+        return "You Lose! Scissors lose to Rock";
+        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
+        winsPlayer++;
+        return "You Win! Scissors beat Paper";
+    }
+    }
+}
+
+
+function printWinner() {
+    if (winsPlayer === winScore) {
+        alert("Congratulations! You won the match!");
+    }
+    if (winsComputer === winScore) {
+        alert("Game over! Computer won the match.");
     }
 }
