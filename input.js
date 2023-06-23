@@ -4,13 +4,17 @@ Input script
 
 *********/
 
+const mainHTML = document.querySelector('main');
 const nameInput = document.querySelector('.form input');
 const invalidInputMessage = document.querySelector('.incorrect-input-message');
-let playerName;
+let playerName = "";
 
 nameInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
+    }
+    if (!notValid(playerName)) {
+        mainHTML.innerHTML = "";
     }
 });
 
@@ -29,6 +33,8 @@ function promptAgainIfNeeded(inputField, message) {
         return name;
     } 
 }
+
+
 
 
 /*********
