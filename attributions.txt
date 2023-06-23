@@ -11,3 +11,6 @@ The project was created using external media files:
 "Vector image of Rock-Paper-Scissors game." by OpenClipart, profile - https://freesvg.org/by/OpenClipart; 
 source file - https://freesvg.org/rock-paper-scissors;
 license - https://creativecommons.org/publicdomain/zero/1.0/
+    2. "Sigmar" by Vernon Adams, profile - https://www.instagram.com/explore/tags/sansoxygen/;
+    source file - https://github.com/googlefonts/sigmarone;
+    license - https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL

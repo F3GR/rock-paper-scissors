@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="author" content="F3GR" />
+	<meta name="description" content="Simple game of Rock, Paper, Scissors" />
+	<link href="./reset.css" rel="stylesheet" />
+	<link href="./style.css" rel="stylesheet" />
+	<link href="./images/originals/rock-paper-scissors.png" rel="icon" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+	<title>Rock, Paper, Scissors</title>
+	<style> </style>
 </head>
 <body>
-    <script src="game.js"></script>
+    <header>
+    <h1>Rock, Paper, Scissors</h1>
+    </header>
+    <main>
+        <div class="list">
+            <ul>Hello! Here are the rules:
+                <li>Write your name below and start</li>
+                <li>Click on image to make your choice</li>
+                <li>Player vs Computer (1vs1)</li>
+                <li>Game lasts until one scores <em>five</em> points</li>
+            </ul>
+        </div>
+        <div class="form">
+            <p class="write-name-message">Write your name here: </p>
+            <input type="text" type="submit" title='Press "Enter" to submit' />
+            <p class="incorrect-input-message"></p>
+        </div>
+    </main>
+    <footer>
+        &copy F3GR, 2023. All rights reserved.
+    </footer>
+    <script src="./input.js"></script>
 </body>
 </html>
