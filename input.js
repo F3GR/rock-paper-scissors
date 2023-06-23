@@ -124,6 +124,27 @@ function playGame() {
 
     const imageRock = document.createElement("img");
     imageRock.setAttribute("src", "./images/rock.png");
+    imagePaper.setAttribute("alt", "An image of choice 'Rock'");
+    imagePaper.setAttribute("title", "Press the image to make your choice!");
     choiceRock.appendChild(imageRock);
 
+    const choicePaper = document.createElement("button");
+    choicePaper.setAttribute("class", "paper");
+    choices.appendChild(choicePaper);
+
+    const imagePaper = document.createElement("img");
+    imagePaper.setAttribute("src", "./images/paper.png");
+    imagePaper.setAttribute("alt", "An image of choice 'Paper'");
+    imagePaper.setAttribute("title", "Press the image to make your choice!");
+    choicePaper.appendChild(imagePaper);
+
+    const choiceScissors = document.createElement("button");
+    choiceScissors.setAttribute("class", "scissors");
+    choices.appendChild(choiceScissors);
+
+    const imageScissors = document.createElement("img");
+    imageScissors.setAttribute("src", "./images/scissors.png");
+    imagePaper.setAttribute("alt", "An image of choice 'Scissors'");
+    imagePaper.setAttribute("title", "Press the image to make your choice!");
+    choiceScissors.appendChild(imageScissors);
 }
