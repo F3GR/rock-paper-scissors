@@ -68,6 +68,7 @@ function playGame() {
     round.innerText = `Round:`;
     rounds.appendChild(round);
 
+
     const roundNumber = document.createElement("h2");
     roundNumber.setAttribute("class", "round-number");
     roundNumber.innerText = `${currentRound}`;
@@ -84,9 +85,15 @@ function playGame() {
     scorePlayer.setAttribute("class", "players-menu");
     scores.appendChild(scorePlayer);
 
+    // Player's current score
+    const playerDisplayName = document.createElement("h2");
+    playerDisplayName.setAttribute("class", "player-name");
+    playerDisplayName.innerText = `${playerName}`;
+    scorePlayer.appendChild(playerDisplayName);
+
     const playerText = document.createElement("h2");
     playerText.setAttribute("class", "text");
-    playerText.innerText = `${playerName}'s score:`;
+    playerText.innerText = `'s score:`;
     scorePlayer.appendChild(playerText);
 
     const playerScore = document.createElement("h2");
@@ -94,7 +101,7 @@ function playGame() {
     playerScore.innerText = `${winsPlayer}`;
     scorePlayer.appendChild(playerScore);
 
-
+    // Computer's current score
     const scoreComputer = document.createElement("div");
     scoreComputer.setAttribute("class", "computers-menu");
     scores.appendChild(scoreComputer);
@@ -114,9 +121,11 @@ function playGame() {
     roundResult.setAttribute("class", "round-result");
     mainHTML.appendChild(roundResult);
 
+
     const choices = document.createElement("div");
     choices.setAttribute("class", "choices");
     mainHTML.appendChild(choices);
+
 
     const choiceRock = document.createElement("button");
     choiceRock.setAttribute("class", "rock");
@@ -124,8 +133,8 @@ function playGame() {
 
     const imageRock = document.createElement("img");
     imageRock.setAttribute("src", "./images/rock.png");
-    imagePaper.setAttribute("alt", "An image of choice 'Rock'");
-    imagePaper.setAttribute("title", "Press the image to make your choice!");
+    imageRock.setAttribute("alt", "An image of choice 'Rock'");
+    imageRock.setAttribute("title", "Click on the image to make your choice!");
     choiceRock.appendChild(imageRock);
 
     const choicePaper = document.createElement("button");
@@ -135,7 +144,7 @@ function playGame() {
     const imagePaper = document.createElement("img");
     imagePaper.setAttribute("src", "./images/paper.png");
     imagePaper.setAttribute("alt", "An image of choice 'Paper'");
-    imagePaper.setAttribute("title", "Press the image to make your choice!");
+    imagePaper.setAttribute("title", "Click on the image to make your choice!");
     choicePaper.appendChild(imagePaper);
 
     const choiceScissors = document.createElement("button");
@@ -144,7 +153,8 @@ function playGame() {
 
     const imageScissors = document.createElement("img");
     imageScissors.setAttribute("src", "./images/scissors.png");
-    imagePaper.setAttribute("alt", "An image of choice 'Scissors'");
-    imagePaper.setAttribute("title", "Press the image to make your choice!");
+    imageScissors.setAttribute("alt", "An image of choice 'Scissors'");
+    imageScissors.setAttribute("title", "Click on the image to make your choice!");
     choiceScissors.appendChild(imageScissors);
+
 }
