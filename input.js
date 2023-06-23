@@ -18,17 +18,19 @@ nameInput.addEventListener('keydown', function (e) {
         mainHTML.appendChild(newDiv);
     
         let counter = 3;
-        newDiv.innerText = `${counter}`
+
+        newDiv.innerText = `${counter}`;
         const interval = setInterval(() => {
-            counter--;
-            newDiv.innerText = `${counter}`;
-            if (counter === 0) {
+        counter--;
+        newDiv.innerText = `${counter}`;
+        if (counter === 0) {
             clearInterval(interval);
             mainHTML.removeChild(newDiv);
+
             renderGameInterface();
+
             addEventListeners();
-            playRound();
-            }      
+        }
         }, 1000)
     }
 });
@@ -79,17 +81,16 @@ function renderGameInterface() {
     rounds.appendChild(roundNumber);
 
 
-
     const scores = document.createElement("div");
     scores.setAttribute("class", "scores");
     mainHTML.appendChild(scores);
 
 
+    // Player's current score
     const scorePlayer = document.createElement("div");
     scorePlayer.setAttribute("class", "players-menu");
     scores.appendChild(scorePlayer);
-
-    // Player's current score
+    
     const playerDisplayName = document.createElement("h2");
     playerDisplayName.setAttribute("class", "player-name");
     playerDisplayName.innerText = `${playerName}`;
@@ -104,6 +105,7 @@ function renderGameInterface() {
     playerScore.setAttribute("class", "player score");
     playerScore.innerText = `${winsPlayer}`;
     scorePlayer.appendChild(playerScore);
+
 
     // Computer's current score
     const scoreComputer = document.createElement("div");
@@ -138,7 +140,7 @@ function renderGameInterface() {
     const imageRock = document.createElement("img");
     imageRock.setAttribute("src", "./images/rock.png");
     imageRock.setAttribute("alt", "An image of choice 'Rock'");
-    imageRock.setAttribute("title", "Click on the image to make your choice!");
+    imageRock.setAttribute("title", "Click on the image or select it and\n press 'Enter' to make your choice!");
     choiceRock.appendChild(imageRock);
     
     // Button Paper
@@ -149,7 +151,7 @@ function renderGameInterface() {
     const imagePaper = document.createElement("img");
     imagePaper.setAttribute("src", "./images/paper.png");
     imagePaper.setAttribute("alt", "An image of choice 'Paper'");
-    imagePaper.setAttribute("title", "Click on the image to make your choice!");
+    imagePaper.setAttribute("title", "Click on the image or select it and\n press 'Enter' to make your choice!");
     choicePaper.appendChild(imagePaper);
 
     // Button Scissors
@@ -160,35 +162,28 @@ function renderGameInterface() {
     const imageScissors = document.createElement("img");
     imageScissors.setAttribute("src", "./images/scissors.png");
     imageScissors.setAttribute("alt", "An image of choice 'Scissors'");
-    imageScissors.setAttribute("title", "Click on the image to make your choice!");
+    imageScissors.setAttribute("title", "Click on the image or select it and\n press 'Enter' to make your choice!");
     choiceScissors.appendChild(imageScissors);
 
 }
 
 // Event listeners on each of the buttons (click + Enter)
 function addEventListeners() {
-    
-    let choicesArray = document.getElementsByTagName("button");
 
-    const testHeader = document.querySelector("header");
-    const testParagraph = document.createElement("h2");
-    testHeader.appendChild(testParagraph);
+    const choicesArray = Array.from(document.getElementsByTagName("button"));
 
-    for (let choice of choicesArray) {
-        choice.addEventListener("keydown", function getChoice(e) {
-            if (e === "keydown") {
-                if (e.key === 'Enter') {
-                    playerChoice = e.target.id;
-                    testParagraph.innerText = `${e} was clicked`
-                }
-            }
-        })
-        choice.addEventListener("click", function getChoice(e) {
-                playerChoice = e.target.id;
-                testParagraph.innerText = `${e} was clicked`
-        });
+    function getChoice() {
+      playerChoice = this.id;
     }
-
+    
+    choicesArray.forEach(selector => {
+        selector.addEventListener("keydown", function(e) {
+        if (e.key === 'Enter') {
+            getChoice.call(this);
+        }
+        });
+        selector.addEventListener("click", getChoice);
+    });
 }
 
 
