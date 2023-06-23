@@ -6,6 +6,7 @@
                   2px 0px 0px white,
                  0px -2px 0px white,
                   0px 2px 0px white;
+    width: 100%;
 }
 
 html {
@@ -21,7 +22,6 @@ body {
 }
 
 body > * {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,17 +30,15 @@ body > * {
 h1 {
     font-size: 2rem;
     letter-spacing: 0.25rem;
+    text-align: center;
 }
 
 main {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .list {
-    flex: 1;
+    flex: 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,6 +49,7 @@ ul {
     list-style-type: '-';
     text-indent: 5px;
     font-size: 1.5rem;
+    margin-left: 50px;
 }
 
 ul > li {
@@ -58,9 +57,15 @@ ul > li {
 }
 
 .form {
-    flex: 1;
+    flex: 2;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form input {
+    max-width: 70%;
 }
 
 .error-box {
@@ -86,6 +91,9 @@ footer {
 /* START */
 
 .counter-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 10rem;
 }
 
@@ -98,8 +106,27 @@ footer {
     align-items: center;
 }
 
+.round-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    width: fit-content;
+    font-size: 1.5rem;
+}
+
+h2.round-number {
+    margin-left: 10px;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
 .scores {
-    width: 100%;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -111,12 +138,12 @@ footer {
 .scores > .computer {
     flex: 1;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.round-box {
-    width: 100%;
+.round-result {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -124,7 +151,6 @@ footer {
 }
 
 .choices {
-    width: 100%;
     flex: 4;
     display: flex;
     justify-content: center;

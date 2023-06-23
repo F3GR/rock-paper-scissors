@@ -38,7 +38,6 @@ function notValid(value) {
 function promptAgainIfNeeded(inputField, message) {
     if (notValid(inputField.value)) {
         invalidInputMessage.hidden = false;
-        promptAgainIfNeeded(inputField, message);
     } else {
         let name = inputField.value;
         inputField.value = "";
@@ -54,7 +53,22 @@ function promptAgainIfNeeded(inputField, message) {
 
 function playGame() {
 
+    let n = 1;
+
     mainHTML.setAttribute("class", "playing");
+
+    const rounds = document.createElement("div");
+    rounds.setAttribute("class", "round-box");
+    mainHTML.appendChild(rounds);
+
+    const round = document.createElement("h2");
+    round.innerText = `Round:`;
+    rounds.appendChild(round);
+
+    const roundNumber = document.createElement("h2");
+    roundNumber.setAttribute("class", "round-number");
+    roundNumber.innerText = `${n}`;
+    rounds.appendChild(roundNumber);
 
     const scores = document.createElement("div");
     scores.setAttribute("class", "scores");
@@ -62,15 +76,15 @@ function playGame() {
 
     const scorePlayer = document.createElement("div");
     scorePlayer.setAttribute("class", "player");
-    mainHTML.appendChild(scorePlayer);
+    scores.appendChild(scorePlayer);
 
     const scoreComputer = document.createElement("div");
     scoreComputer.setAttribute("class", "computer");
-    mainHTML.appendChild(scoreComputer);
+    scores.appendChild(scoreComputer);
 
-    const rounds = document.createElement("div");
-    rounds.setAttribute("class", "round-box");
-    mainHTML.appendChild(rounds);
+    const roundResult = document.createElement("div");
+    roundResult.setAttribute("class", "round-result");
+    mainHTML.appendChild(roundResult);
 
     const choices = document.createElement("div");
     choices.setAttribute("class", "choices");
