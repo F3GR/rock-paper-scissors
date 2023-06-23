@@ -53,7 +53,10 @@ function promptAgainIfNeeded(inputField, message) {
 
 function playGame() {
 
-    let n = 1;
+    const winScore = 5;
+    let winsPlayer = 0;
+    let winsComputer = 0;
+    let currentRound = 1;
 
     mainHTML.setAttribute("class", "playing");
 
@@ -67,20 +70,45 @@ function playGame() {
 
     const roundNumber = document.createElement("h2");
     roundNumber.setAttribute("class", "round-number");
-    roundNumber.innerText = `${n}`;
+    roundNumber.innerText = `${currentRound}`;
     rounds.appendChild(roundNumber);
+
+
 
     const scores = document.createElement("div");
     scores.setAttribute("class", "scores");
     mainHTML.appendChild(scores);
 
+
     const scorePlayer = document.createElement("div");
-    scorePlayer.setAttribute("class", "player");
+    scorePlayer.setAttribute("class", "players-menu");
     scores.appendChild(scorePlayer);
 
+    const playerText = document.createElement("h2");
+    playerText.setAttribute("class", "text");
+    playerText.innerText = `${playerName}'s score:`;
+    scorePlayer.appendChild(playerText);
+
+    const playerScore = document.createElement("h2");
+    playerScore.setAttribute("class", "player score");
+    playerScore.innerText = `${winsPlayer}`;
+    scorePlayer.appendChild(playerScore);
+
+
     const scoreComputer = document.createElement("div");
-    scoreComputer.setAttribute("class", "computer");
+    scoreComputer.setAttribute("class", "computers-menu");
     scores.appendChild(scoreComputer);
+
+    const computerText = document.createElement("h2");
+    computerText.setAttribute("class", "text");
+    computerText.innerText = `Computer's score:`;
+    scoreComputer.appendChild(computerText);
+
+    const computerScore = document.createElement("h2");
+    computerScore.setAttribute("class", "computer score");
+    computerScore.innerText = `${winsComputer}`;
+    scoreComputer.appendChild(computerScore);
+
 
     const roundResult = document.createElement("div");
     roundResult.setAttribute("class", "round-result");
@@ -89,5 +117,13 @@ function playGame() {
     const choices = document.createElement("div");
     choices.setAttribute("class", "choices");
     mainHTML.appendChild(choices);
+
+    const choiceRock = document.createElement("button");
+    choiceRock.setAttribute("class", "rock");
+    choices.appendChild(choiceRock);
+
+    const imageRock = document.createElement("img");
+    imageRock.setAttribute("src", "./images/rock.png");
+    choiceRock.appendChild(imageRock);
 
 }
