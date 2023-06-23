@@ -29,6 +29,12 @@ nameInput.addEventListener('keydown', function (e) {
               mainHTML.removeChild(newDiv);
             }
           }, 1000)
+
+        let gameScript = document.createElement('script');
+        gameScript.src = "./game.js";
+        document.body.appendChild(gameScript);
+
+        File.exports = { playerName };
     }
 });
 
@@ -41,7 +47,7 @@ function notValid(value) {
 
 function promptAgainIfNeeded(inputField, message) {
     if (notValid(inputField.value)) {
-        invalidInputMessage.innerText = "Your input is not valid. Please, try again!";
+        invalidInputMessage.hidden = false;
         promptAgainIfNeeded(inputField, message);
     } else {
         let name = inputField.value;

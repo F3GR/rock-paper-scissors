@@ -1,3 +1,13 @@
+import { createServer } from 'https';
+import { playerName } from './input.js';
+
+createServer(function (req, res) {
+  res.write(str);
+  res.end();
+}).listen(8080);
+
+const player = playerName;
+
 const choices = ["rock", "paper", "scissors"];
 const winScore = 5;
 let winsPlayer = 0;

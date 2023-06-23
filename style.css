@@ -1,3 +1,5 @@
+/* Menu selectors */
+
 * {
     font-family:'Sigmar', cursive, 'Brush Script MT', cursive;
     text-shadow: -2px 0px 0px white,
@@ -32,6 +34,9 @@ h1 {
 
 main {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .list {
@@ -56,11 +61,14 @@ ul > li {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+}
+
+.error-box {
+    flex: 0 0 15vh;
 }
 
 .incorrect-input-message {
+    flex-basis: 100%;
     text-shadow: -2px 0px 0px red,
                 2px 0px 0px red,
                 0px -2px 0px red,
@@ -77,3 +85,43 @@ footer {
 .counter-screen {
     font-size: 10rem;
 }
+
+
+/* Game selectors */
+
+.playing {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.scores {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scores > .player,
+.scores > .computer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.round-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choices {
+    flex: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Result selectors */
