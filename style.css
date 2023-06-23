@@ -82,6 +82,9 @@ footer {
     letter-spacing: normal;
 }
 
+
+/* START */
+
 .counter-screen {
     font-size: 10rem;
 }
@@ -96,10 +99,12 @@ footer {
 }
 
 .scores {
+    width: 100%;
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 }
 
 .scores > .player,
@@ -111,6 +116,7 @@ footer {
 }
 
 .round-box {
+    width: 100%;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -118,6 +124,7 @@ footer {
 }
 
 .choices {
+    width: 100%;
     flex: 4;
     display: flex;
     justify-content: center;
