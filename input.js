@@ -1,22 +1,39 @@
-/*********
-
-Input script 
-
-*********/
+/********* Input script *********/
 
 const mainHTML = document.querySelector('main');
 const nameInput = document.querySelector('.form input');
 const invalidInputMessage = document.querySelector('.incorrect-input-message');
 let playerName = "";
 
+
 nameInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
     }
     if (!notValid(playerName)) {
+
+        /********* Game script *********/
         mainHTML.innerHTML = "";
+
+        const newDiv = document.createElement("div");
+        newDiv.setAttribute("class", "counter-screen");
+        mainHTML.appendChild(newDiv);
+
+        let i = 3;
+        newDiv.innerText = `${i}`
+        const interval = setInterval(() => {
+            i--;
+            newDiv.innerText = `${i}`;
+            if (i === 0) {
+              clearInterval(interval);
+              mainHTML.removeChild(newDiv);
+            }
+          }, 1000)
     }
 });
+
+
+
 
 function notValid(value) {
     return (value === null || value === undefined || value.trim() === '');
@@ -25,6 +42,7 @@ function notValid(value) {
 function promptAgainIfNeeded(inputField, message) {
     if (notValid(inputField.value)) {
         invalidInputMessage.innerText = "Your input is not valid. Please, try again!";
+        promptAgainIfNeeded(inputField, message);
     } else {
         let name = inputField.value;
         inputField.value = "";
@@ -33,12 +51,3 @@ function promptAgainIfNeeded(inputField, message) {
         return name;
     } 
 }
-
-
-
-
-/*********
-
-Game script 
-
-*********/
