@@ -212,6 +212,11 @@ function getComputerChoice() {
 
 function playRound(playerChoice, computerChoice) {
 
+    if (winsPlayer === 5 || winsComputer == 5) {
+        mainHTML.innerHTML = "";
+        printWinner();    
+    }
+
     const selectComputerScore = document.querySelector('.computer-score');
     const selectPlayerScore = document.querySelector('.player-score');
     const selectRoundResultMessage = document.querySelector('.round-result-message');
