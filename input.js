@@ -289,8 +289,20 @@ function playRound(playerChoice, computerChoice) {
 
 function findWinner() {
     if (winsPlayer === 5 || winsComputer == 5) {
-    mainHTML.innerHTML = "";
-    printWinner();    
+
+        const spanDots = document.createElement('span');
+        const roundResultMessage = document.querySelector('.round-result-message');
+        roundResultMessage.appendChild(spanDots);
+        spanDots.innerText = `..`;
+
+        const choicesArray = Array.from(document.getElementsByTagName("button"));
+        const choiceDiv = document.querySelector('.choices');
+        choicesArray.forEach(selector => choiceDiv.removeChild(selector));
+
+        setTimeout(function() {
+            mainHTML.innerHTML = "";
+            printWinner();
+        }, 2000);
     }
 }
 
