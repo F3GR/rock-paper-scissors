@@ -15,8 +15,6 @@ let currentRound = 1;
 let playerChoice;
 let computerChoice;
 
-let roundResultMessage;
-
 nameInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
@@ -92,47 +90,47 @@ function renderGameInterface() {
 
 
     // Player's current score
-    const scorePlayer = document.createElement("div");
-    scorePlayer.setAttribute("class", "players-menu");
-    scores.appendChild(scorePlayer);
+    const menuPlayer = document.createElement("div");
+    menuPlayer.setAttribute("class", "players-menu");
+    scores.appendChild(menuPlayer);
     
     const playerDisplayName = document.createElement("h2");
     playerDisplayName.setAttribute("class", "player-name");
     playerDisplayName.innerText = `${playerName}`;
-    scorePlayer.appendChild(playerDisplayName);
+    menuPlayer.appendChild(playerDisplayName);
 
     const playerText = document.createElement("h2");
     playerText.setAttribute("class", "text");
     playerText.innerText = `'s score:`;
-    scorePlayer.appendChild(playerText);
+    menuPlayer.appendChild(playerText);
 
     const playerScore = document.createElement("h2");
-    playerScore.setAttribute("class", "player score");
+    playerScore.setAttribute("class", "player-score");
     playerScore.innerText = `${winsPlayer}`;
-    scorePlayer.appendChild(playerScore);
+    menuPlayer.appendChild(playerScore);
 
 
     // Computer's current score
-    const scoreComputer = document.createElement("div");
-    scoreComputer.setAttribute("class", "computers-menu");
-    scores.appendChild(scoreComputer);
+    const menuComputer = document.createElement("div");
+    menuComputer.setAttribute("class", "computers-menu");
+    scores.appendChild(menuComputer);
 
     const computerText = document.createElement("h2");
     computerText.setAttribute("class", "text");
     computerText.innerText = `Computer's score:`;
-    scoreComputer.appendChild(computerText);
+    menuComputer.appendChild(computerText);
 
     const computerScore = document.createElement("h2");
-    computerScore.setAttribute("class", "computer score");
+    computerScore.setAttribute("class", "computer-score");
     computerScore.innerText = `${winsComputer}`;
-    scoreComputer.appendChild(computerScore);
+    menuComputer.appendChild(computerScore);
 
     // Previous round's result
     const roundResult = document.createElement("div");
     roundResult.setAttribute("class", "round-result");
     mainHTML.appendChild(roundResult);
 
-    roundResultMessage = document.createElement("h2");
+    const roundResultMessage = document.createElement("h2");
     roundResultMessage.setAttribute("class", "round-result-message");
     roundResult.appendChild(roundResultMessage);
 
@@ -213,61 +211,71 @@ function getComputerChoice() {
 
 
 function playRound(playerChoice, computerChoice) {
+
+    const selectComputerScore = document.querySelector('.computer-score');
+    const selectPlayerScore = document.querySelector('.player-score');
+    const selectRoundResultMessage = document.querySelector('.round-result-message');
+
     switch (true) {
         case (playerChoice === computerChoice):
-        roundResultMessage.innerText = `Round ${currentRound} is a Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
+        selectRoundResultMessage.innerText = `Round ${currentRound} is a Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         break;
 
         case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
-        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Rock loses to Scissors`;
+        selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Rock loses to Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectComputerScore.innerText = `${winsComputer}`;
         break;
 
         case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
-        roundResultMessage.innerText = `You Win round ${currentRound}! Rock beats Scissors`;
+        selectRoundResultMessage.innerText = `You Win round ${currentRound}! Rock beats Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsPlayer++;
+        selectPlayerScore.innerText = `${winsPlayer}`;
         break;
         
-
         case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
-        roundResultMessage.innerText = `You Win round ${currentRound}! Paper beats Rock`;
+        selectRoundResultMessage.innerText = `You Win round ${currentRound}! Paper beats Rock`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsPlayer++;
+        selectPlayerScore.innerText = `${winsPlayer}`;
         break;
 
         case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
-        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Paper loses to Scissors`;
+        selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Paper loses to Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectComputerScore.innerText = `${winsComputer}`;
         break;
 
         case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
-        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Scissors lose to Rock`;
+        selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Scissors lose to Rock`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectComputerScore.innerText = `${winsComputer}`;
         break;
         
         case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
-        roundResultMessage.innerText = `You Win round ${currentRound}! Scissors beat Paper`;
+        selectRoundResultMessage.innerText = `You Win round ${currentRound}! Scissors beat Paper`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
-        winsPlayer++;   
+        winsPlayer++;
+        selectPlayerScore.innerText = `${winsPlayer}`;
         break;   
     }
 }
