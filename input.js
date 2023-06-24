@@ -212,11 +212,6 @@ function getComputerChoice() {
 
 function playRound(playerChoice, computerChoice) {
 
-    if (winsPlayer === 5 || winsComputer == 5) {
-        mainHTML.innerHTML = "";
-        printWinner();    
-    }
-
     const selectComputerScore = document.querySelector('.computer-score');
     const selectPlayerScore = document.querySelector('.player-score');
     const selectRoundResultMessage = document.querySelector('.round-result-message');
@@ -236,6 +231,7 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsComputer++;
         selectComputerScore.innerText = `${winsComputer}`;
+        findWinner();
         break;
 
         case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
@@ -245,6 +241,7 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsPlayer++;
         selectPlayerScore.innerText = `${winsPlayer}`;
+        findWinner();
         break;
         
         case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
@@ -254,6 +251,7 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsPlayer++;
         selectPlayerScore.innerText = `${winsPlayer}`;
+        findWinner();
         break;
 
         case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
@@ -263,6 +261,7 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsComputer++;
         selectComputerScore.innerText = `${winsComputer}`;
+        findWinner();
         break;
 
         case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
@@ -272,6 +271,7 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsComputer++;
         selectComputerScore.innerText = `${winsComputer}`;
+        findWinner();
         break;
         
         case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
@@ -281,15 +281,32 @@ function playRound(playerChoice, computerChoice) {
         currentRound++;
         winsPlayer++;
         selectPlayerScore.innerText = `${winsPlayer}`;
+        findWinner();
         break;   
     }
 }
 
+
+function findWinner() {
+    if (winsPlayer === 5 || winsComputer == 5) {
+    mainHTML.innerHTML = "";
+    printWinner();    
+    }
+}
+
 function printWinner() {
+    const endBox = document.createElement("div");
+    endBox.setAttribute("class", "end-box");
+    mainHTML.appendChild(endBox);
+
+    const endMessage = document.createElement("h1");
+    endMessage.setAttribute("class", "end-message");
+    endBox.appendChild(endMessage);
+
     if (winsPlayer === winScore) {
-        alert("Congratulations! You won the match!");
+        endMessage.innerText = "Congratulations! You won the match!";
     }
     if (winsComputer === winScore) {
-        alert("Game over! Computer won the match.");
+        endMessage.innerText = "Game over! Computer won the match.";
     }
 }
