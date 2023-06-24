@@ -180,10 +180,10 @@ function addEventListeners() {
 
     const choicesArray = Array.from(document.getElementsByTagName("button"));
 
-    function getChoice() {
-      playerChoice = this.id;
-      computerChoice = getComputerChoice();
-      playRound(playerChoice, computerChoice);
+    function getChoice(e) {
+        playerChoice = this.id;
+        computerChoice = getComputerChoice();
+        playRound(playerChoice, computerChoice);
     }
     
     choicesArray.forEach(selector => {
@@ -206,6 +206,7 @@ function getComputerChoice() {
 
 function playRound(playerChoice, computerChoice) {
 
+    const selectCurrentRoundNumber = document.querySelector('.round-number');
     const selectComputerScore = document.querySelector('.computer-score');
     const selectPlayerScore = document.querySelector('.player-score');
     const selectRoundResultMessage = document.querySelector('.round-result-message');
@@ -216,64 +217,71 @@ function playRound(playerChoice, computerChoice) {
         playerChoice = "";
         computerChoice = "";
         currentRound++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         break;
 
-        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
+        case (playerChoice === choiceOptions[0] && computerChoice === choiceOptions[1]):
         selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Rock loses to Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectComputerScore.innerText = `${winsComputer}`;
         findWinner();
         break;
 
-        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
+        case (playerChoice === choiceOptions[0] && computerChoice === choiceOptions[2]):
         selectRoundResultMessage.innerText = `You Win round ${currentRound}! Rock beats Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsPlayer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectPlayerScore.innerText = `${winsPlayer}`;
         findWinner();
         break;
         
-        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
+        case (playerChoice === choiceOptions[1] && computerChoice === choiceOptions[0]):
         selectRoundResultMessage.innerText = `You Win round ${currentRound}! Paper beats Rock`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsPlayer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectPlayerScore.innerText = `${winsPlayer}`;
         findWinner();
         break;
 
-        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
+        case (playerChoice === choiceOptions[1] && computerChoice === choiceOptions[2]):
         selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Paper loses to Scissors`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectComputerScore.innerText = `${winsComputer}`;
         findWinner();
         break;
 
-        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
+        case (playerChoice === choiceOptions[2] && computerChoice === choiceOptions[0]):
         selectRoundResultMessage.innerText = `Computer Wins round ${currentRound}! Scissors lose to Rock`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsComputer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectComputerScore.innerText = `${winsComputer}`;
         findWinner();
         break;
         
-        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
+        case (playerChoice === choiceOptions[2] && computerChoice === choiceOptions[1]):
         selectRoundResultMessage.innerText = `You Win round ${currentRound}! Scissors beat Paper`;
         playerChoice = "";
         computerChoice = "";
         currentRound++;
         winsPlayer++;
+        selectCurrentRoundNumber.innerText = `${currentRound}`;
         selectPlayerScore.innerText = `${winsPlayer}`;
         findWinner();
         break;   
@@ -291,6 +299,7 @@ function findWinner() {
 
         const choicesArray = Array.from(document.getElementsByTagName("button"));
         const choiceDiv = document.querySelector('.choices');
+        choicesArray.forEach(selector => selector.disabled = true);
         choicesArray.forEach(selector => choiceDiv.removeChild(selector));
 
         setTimeout(function() {
@@ -316,10 +325,20 @@ function printEndMenu() {
         endMessage.innerText = "Game over! Computer won the match.";
     }
 
+    winsPlayer = 0;
+    winsComputer = 0;
+    currentRound = 1;
+
     const endButton = document.createElement("button");
     endButton.setAttribute("class", "replay-button");
-    endButton.setAttribute("title", "Press the button to play again");
+    endButton.setAttribute("title", "Click on the button or select it and\n press 'Enter' to start a new match!");
     endButton.innerText = `Play again`;
     endBox.appendChild(endButton);
 
-}
+    endButton.addEventListener("keydown", function(e) {
+        if (e.key === 'Enter') {
+            startGame;
+        }
+        });
+    endButton.addEventListener("click", startGame);
+};
