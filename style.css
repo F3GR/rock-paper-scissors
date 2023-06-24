@@ -189,3 +189,24 @@ h3 {
 }
 
 /* Result selectors */
+
+span {
+    margin-left: 5px;
+}
+
+.end-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.replay-button {
+    width: 20%;
+    flex: 0 1 50px;
+    margin-top: 50px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

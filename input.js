@@ -20,28 +20,7 @@ nameInput.addEventListener('keydown', function (e) {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
     }
     if (!notValid(playerName)) {
-
-        /***** START *****/
-        mainHTML.innerHTML = "";
-        const newDiv = document.createElement("div");
-        newDiv.setAttribute("class", "counter-screen");
-        mainHTML.appendChild(newDiv);
-    
-        let counter = 3;
-
-        newDiv.innerText = `${counter}`;
-        const interval = setInterval(() => {
-        counter--;
-        newDiv.innerText = `${counter}`;
-        if (counter === 0) {
-            clearInterval(interval);
-            mainHTML.removeChild(newDiv);
-
-            renderGameInterface();
-
-            addEventListeners();
-        }
-        }, 1000)
+        startGame();
     }
 });
 
@@ -61,7 +40,28 @@ function promptAgainIfNeeded(inputField, message) {
     } 
 }
 
+function startGame() {
+    mainHTML.innerHTML = "";
+    const newDiv = document.createElement("div");
+    newDiv.setAttribute("class", "counter-screen");
+    mainHTML.appendChild(newDiv);
 
+    let counter = 3;
+
+    newDiv.innerText = `${counter}`;
+    const interval = setInterval(() => {
+    counter--;
+    newDiv.innerText = `${counter}`;
+    if (counter === 0) {
+        clearInterval(interval);
+        mainHTML.removeChild(newDiv);
+
+        renderGameInterface();
+
+        addEventListeners();
+    }
+    }, 1000)
+}
 
 /***** Game Interface *****/
 
@@ -199,14 +199,8 @@ function addEventListeners() {
 }
 
 function getComputerChoice() {
-    const computerChoice = Math.round(Math.random() * 3) + 1;
-    if (computerChoice === 1) {
-        return choiceOptions[0];
-    } else if (computerChoice === 2) {
-        return choiceOptions[1];
-    } else {
-        return choiceOptions[2];
-    } 
+    const computerChoice = Math.floor(Math.random() * 2);
+    return choiceOptions[computerChoice];
 }
 
 
@@ -293,7 +287,7 @@ function findWinner() {
         const spanDots = document.createElement('span');
         const roundResultMessage = document.querySelector('.round-result-message');
         roundResultMessage.appendChild(spanDots);
-        spanDots.innerText = `..`;
+        spanDots.innerText = `...`;
 
         const choicesArray = Array.from(document.getElementsByTagName("button"));
         const choiceDiv = document.querySelector('.choices');
@@ -301,12 +295,12 @@ function findWinner() {
 
         setTimeout(function() {
             mainHTML.innerHTML = "";
-            printWinner();
+            printEndMenu();
         }, 2000);
     }
 }
 
-function printWinner() {
+function printEndMenu() {
     const endBox = document.createElement("div");
     endBox.setAttribute("class", "end-box");
     mainHTML.appendChild(endBox);
@@ -321,4 +315,11 @@ function printWinner() {
     if (winsComputer === winScore) {
         endMessage.innerText = "Game over! Computer won the match.";
     }
+
+    const endButton = document.createElement("button");
+    endButton.setAttribute("class", "replay-button");
+    endButton.setAttribute("title", "Press the button to play again");
+    endButton.innerText = `Play again`;
+    endBox.appendChild(endButton);
+
 }
