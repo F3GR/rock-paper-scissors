@@ -141,7 +141,8 @@ h3 {
     align-items: center;
 }
 
-.score {
+h2.player-score,
+h2.computer-score {
     margin-left: 5px;
 }
 
