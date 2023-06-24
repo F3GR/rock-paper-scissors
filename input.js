@@ -5,6 +5,18 @@ const nameInput = document.querySelector('.form input');
 const invalidInputMessage = document.querySelector('.incorrect-input-message');
 let playerName = "";
 
+const choiceOptions = ["rock", "paper", "scissors"];
+const winScore = 5;
+
+let winsPlayer = 0;
+let winsComputer = 0;
+let currentRound = 1;
+
+let playerChoice;
+let computerChoice;
+
+let roundResultMessage;
+
 nameInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
@@ -51,14 +63,7 @@ function promptAgainIfNeeded(inputField, message) {
     } 
 }
 
-const choiceOptions = ["rock", "paper", "scissors"];
-const winScore = 5;
 
-let winsPlayer = 0;
-let winsComputer = 0;
-let currentRound = 1;
-
-let playerChoice;
 
 /***** Game Interface *****/
 
@@ -127,6 +132,11 @@ function renderGameInterface() {
     roundResult.setAttribute("class", "round-result");
     mainHTML.appendChild(roundResult);
 
+    roundResultMessage = document.createElement("h2");
+    roundResultMessage.setAttribute("class", "round-result-message");
+    roundResult.appendChild(roundResultMessage);
+
+
 
     const choices = document.createElement("div");
     choices.setAttribute("class", "choices");
@@ -174,31 +184,23 @@ function addEventListeners() {
 
     function getChoice() {
       playerChoice = this.id;
+      computerChoice = getComputerChoice();
+      playRound(playerChoice, computerChoice);
     }
     
     choicesArray.forEach(selector => {
         selector.addEventListener("keydown", function(e) {
         if (e.key === 'Enter') {
             getChoice.call(this);
+            computerChoice = getComputerChoice();
+            playRound(playerChoice, computerChoice);
         }
         });
         selector.addEventListener("click", getChoice);
     });
 }
 
-
-function playRound() {
-    /* Event listeners on each of the buttons (click + Enter)
-    choiceRock.addEventListener("keydown", getChoice(e));
-    choiceRock.addEventListener("click", getChoice(e));
-    choicePaper.addEventListener("keydown", getChoice(e));
-    choicePaper.addEventListener("click", getChoice(e));
-    choiceScissors.addEventListener("keydown", getChoice(e));
-    choiceScissors.addEventListener("click", getChoice(e)); */
-
-    let computerChoice = getComputerChoice();
-        
-    function getComputerChoice() {
+function getComputerChoice() {
     const computerChoice = Math.round(Math.random() * 3) + 1;
     if (computerChoice === 1) {
         return choiceOptions[0];
@@ -207,34 +209,68 @@ function playRound() {
     } else {
         return choiceOptions[2];
     } 
-    }
-    
-    function printedResult(playerChoice, computerChoice) {
-    switch (true) {
-        case (playerChoice === computerChoice):
-        return `Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
-        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
-        winsComputer++;
-        return "You Lose! Rock loses to Scissors";
-        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
-        winsPlayer++;
-        return "You Win! Rock beats Scissors";
-        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
-        winsPlayer++;
-        return "You Win! Paper beats Rock";
-        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
-        winsComputer++;
-        return "You Lose! Paper loses to Scissors";
-        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
-        winsComputer++;
-        return "You Lose! Scissors lose to Rock";
-        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
-        winsPlayer++;
-        return "You Win! Scissors beat Paper";
-    }
-    }
 }
 
+
+function playRound(playerChoice, computerChoice) {
+    switch (true) {
+        case (playerChoice === computerChoice):
+        roundResultMessage.innerText = `Round ${currentRound} is a Tie! Your choice is ${playerChoice}, Computer's choice is ${computerChoice} as well.`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        break;
+
+        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[1]):
+        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Rock loses to Scissors`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsComputer++;
+        break;
+
+        case (playerChoice === choiceOptions[0], computerChoice === choiceOptions[2]):
+        roundResultMessage.innerText = `You Win round ${currentRound}! Rock beats Scissors`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsPlayer++;
+        break;
+        
+
+        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[0]):
+        roundResultMessage.innerText = `You Win round ${currentRound}! Paper beats Rock`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsPlayer++;
+        break;
+
+        case (playerChoice === choiceOptions[1], computerChoice === choiceOptions[2]):
+        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Paper loses to Scissors`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsComputer++;
+        break;
+
+        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[0]):
+        roundResultMessage.innerText = `Computer Wins round ${currentRound}! Scissors lose to Rock`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsComputer++;
+        break;
+        
+        case (playerChoice === choiceOptions[2], computerChoice === choiceOptions[1]):
+        roundResultMessage.innerText = `You Win round ${currentRound}! Scissors beat Paper`;
+        playerChoice = "";
+        computerChoice = "";
+        currentRound++;
+        winsPlayer++;   
+        break;   
+    }
+}
 
 function printWinner() {
     if (winsPlayer === winScore) {
