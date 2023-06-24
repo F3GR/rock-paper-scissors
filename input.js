@@ -198,7 +198,7 @@ function addEventListeners() {
 
 
     function getChoice(e) {
-        if (e.key === 'Enter' & timeDiff >= 800) {
+        if (e.key === 'Enter' & timeDiff >= 500) {
           e.stopImmediatePropagation();
           e.preventDefault(); // Prevent the form submission on Enter key press
 
@@ -219,7 +219,7 @@ function addEventListeners() {
         const currentTime = Date.now();
         const timeDiff = currentTime - lastEventTime;
 
-        if (timeDiff >= 800) {
+        if (timeDiff >= 500) {
             playerChoice = this.id;
             computerChoice = getComputerChoice();
             lastEventTime = currentTime;
