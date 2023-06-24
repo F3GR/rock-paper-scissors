@@ -8,19 +8,31 @@ let playerName = "";
 const choiceOptions = ["rock", "paper", "scissors"];
 const winScore = 5;
 
-let winsPlayer = 0;
-let winsComputer = 0;
-let currentRound = 1;
+let winsPlayer;
+let winsComputer;
+let currentRound;
 
 let playerChoice;
 let computerChoice;
 
+let lastEventTime = 0;
+
 nameInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
+        const currentTime = Date.now();
+        const timeDiff = currentTime - lastEventTime;
+
+        if (timeDiff < 1000) {
+            invalidInputMessage.hidden = false;
+            invalidInputMessage.innerText = "The prompt attempts are too quick, please try a little later";
+            lastEventTime = currentTime;
+        } else {
             playerName = promptAgainIfNeeded(nameInput, invalidInputMessage);
-    }
-    if (!notValid(playerName)) {
-        startGame();
+            lastEventTime = currentTime;
+            if (!notValid(playerName)) {
+                startGame();
+            }
+        }
     }
 });
 
@@ -28,14 +40,14 @@ function notValid(value) {
     return (value === null || value === undefined || value.trim() === '');
 }
 
-function promptAgainIfNeeded(inputField, message) {
+function promptAgainIfNeeded(inputField, messageField) {
     if (notValid(inputField.value)) {
-        invalidInputMessage.hidden = false;
+        messageField.hidden = false;
+        messageField.innerText = "Your input is not valid, please try again!";
     } else {
         let name = inputField.value;
-        inputField.value = "";
         inputField.innerText = "";
-        message.innerText = "";
+        messageField.innerText = "";
         return name;
     } 
 }
@@ -45,6 +57,10 @@ function startGame() {
     const newDiv = document.createElement("div");
     newDiv.setAttribute("class", "counter-screen");
     mainHTML.appendChild(newDiv);
+
+    winsPlayer = 0;
+    winsComputer = 0;
+    currentRound = 1;
 
     let counter = 3;
 
@@ -180,22 +196,41 @@ function addEventListeners() {
 
     const choicesArray = Array.from(document.getElementsByTagName("button"));
 
+
     function getChoice(e) {
-        playerChoice = this.id;
-        computerChoice = getComputerChoice();
-        playRound(playerChoice, computerChoice);
-    }
+        if (e.key === 'Enter' & timeDiff >= 800) {
+          e.stopImmediatePropagation();
+          e.preventDefault(); // Prevent the form submission on Enter key press
+
+          const currentTime = Date.now();
+          const timeDiff = currentTime - lastEventTime;
+          
+          playerChoice = this.id;
+          computerChoice = getComputerChoice();
+          lastEventTime = currentTime;
+          playRound(playerChoice, computerChoice);
+        }
+      }
     
-    choicesArray.forEach(selector => {
-        selector.addEventListener("keydown", function(e) {
-        if (e.key === 'Enter') {
-            getChoice.call(this);
+      function handleClick(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+
+        const currentTime = Date.now();
+        const timeDiff = currentTime - lastEventTime;
+
+        if (timeDiff >= 800) {
+            playerChoice = this.id;
             computerChoice = getComputerChoice();
+            lastEventTime = currentTime;
             playRound(playerChoice, computerChoice);
         }
-        });
-        selector.addEventListener("click", getChoice);
-    });
+      }
+    
+      choicesArray.forEach(selector => {
+        selector.addEventListener("keyup", getChoice);
+        selector.addEventListener("click", handleClick);
+      });
 }
 
 function getComputerChoice() {
@@ -318,26 +353,24 @@ function printEndMenu() {
     endMessage.setAttribute("class", "end-message");
     endBox.appendChild(endMessage);
 
-    if (winsPlayer === winScore) {
-        endMessage.innerText = "Congratulations! You won the match!";
-    }
-    if (winsComputer === winScore) {
-        endMessage.innerText = "Game over! Computer won the match.";
-    }
-
-    winsPlayer = 0;
-    winsComputer = 0;
-    currentRound = 1;
-
     const endButton = document.createElement("button");
     endButton.setAttribute("class", "replay-button");
     endButton.setAttribute("title", "Click on the button or select it and\n press 'Enter' to start a new match!");
-    endButton.innerText = `Play again`;
     endBox.appendChild(endButton);
 
-    endButton.addEventListener("keydown", function(e) {
+    if (winsPlayer === winScore) {
+        endMessage.innerText = "Congratulations! You won the match!";
+        endButton.innerText = `Play again`;
+    }
+    if (winsComputer === winScore) {
+        endMessage.innerText = "Game over! Computer won the match.";
+        endButton.innerText = `Try again`;
+    }
+
+    endButton.addEventListener("keyup", function(e) {
+        e.stopPropagation();
         if (e.key === 'Enter') {
-            startGame;
+            startGame();
         }
         });
     endButton.addEventListener("click", startGame);
